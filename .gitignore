@@ -1,0 +1,21 @@
+# Python / Flask specific gitignore
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+dist/
+.venv/
+instance/
+.webassets-cache
+
+
+# Emacs specific gitignore
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.etc
+auto-save-list
+tramp
+.\#*

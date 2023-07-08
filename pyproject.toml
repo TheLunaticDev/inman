@@ -1,0 +1,11 @@
+[project]
+name = "inventory-manager"
+version = "0.1"
+description = "Let's you manage and schedule maintenance for the assets in your organization."
+dependencies = [
+    "flask",
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
