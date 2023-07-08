@@ -80,3 +80,8 @@ CREATE TABLE link_other_service (
   FOREIGN KEY (inventory_id) REFERENCES inventory (id),
   FOREIGN KEY (other_service_id) REFERENCES other_service (id)
 );
+
+INSERT INTO status VALUES (1, 'working');
+INSERT INTO status VALUES (2, 'not-working');
+INSERT INTO access VALUES (1, 'admin');
+INSERT INTO access VALUES (2, 'regular');
