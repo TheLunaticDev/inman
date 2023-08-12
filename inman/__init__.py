@@ -9,6 +9,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'inventory-manager.sqlite'),
         LOG=os.path.join(app.instance_path, 'log.txt'),
+        REPORT=os.path.join(app.instance_path, 'report.txt'),
     )
 
     if test_config is None:
@@ -24,18 +25,18 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
     from . import db
     db.init_app(app)
 
-    from . import auth
-    app.register_blueprint(auth.bp)
-
     from . import log
     log.init_app(app)
+
+    from . import index
+    app.register_blueprint(index.bp)
+    app.add_url_rule('/', endpoint='index')
+
+    from . import report
+    app.register_blueprint(report.bp)
+    app.add_url_rule('/', endpoint='report')
 
     return app
