@@ -36,9 +36,14 @@
 	    <li class="nav-item">
               <a class="nav-link" href="{{ url_for('index.download_log') }}">Log</a>
             </li>
-	    <li class="nav-item">
-	      <a class="nav-link" data-bs-toggle="modal" data-bs-target="#report-modifier">Report</a>
-	    </li>
+	    <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		Report
+              </a>
+              <ul class="dropdown-menu">
+		<li><a class="dropdown-item" href="{{ url_for('report.normal_service') }}">Normal Service</a></li>
+              </ul>
+            </li>
 	    <li class="nav-item">
               <a class="nav-link" href="{{ url_for('index.logout') }}">Logout</a>
             </li>
@@ -271,120 +276,6 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="report-modifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Report Modifiers</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-	<div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#report-location">Choose Location</a>
-  <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#report-asset-number">Input Asset Number</a>
-  <a href="{{ url_for("report.normal_service") }}" class="list-group-item list-group-item-action">Normal Service</a>
-  <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#report-other-service">Other Service</a>
-</div>
-      </div>
-      <div class="modal-footer">
-	<div class="list-group">
-	  <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#report-full">Generate Full Report</a>
-	</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="report-location" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Choose a Location</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-	<ul>
-	  <li><a href="#">Choose Location</a></li>
-	  <li><a href="#">Input Asset Number</a></li>
-	  <li><a href="#">Normal Service</a></li>
-	  <li><a href="#">Other Service<a></li>
-	</ul>
-      </div>
-      <div class="modal-footer">
-	<input class="form-control me-2" type="submit" value="Generate Report">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="report-asset-number" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter An Asset Number</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-	<ul>
-	  <li><a href="#">Choose Location</a></li>
-	  <li><a href="#">Input Asset Number</a></li>
-	  <li><a href="#">Normal Service</a></li>
-	  <li><a href="#">Other Service<a></li>
-	</ul>
-      </div>
-      <div class="modal-footer">
-	<input class="form-control me-2" type="submit" value="Generate Report">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="report-normal-service" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Report Modifiers</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-	<ul>
-	  <li><a href="#">Choose Location</a></li>
-	  <li><a href="#">Input Asset Number</a></li>
-	  <li><a href="#">Normal Service</a></li>
-	  <li><a href="#">Other Service<a></li>
-	</ul>
-      </div>
-      <div class="modal-footer">
-	<input class="form-control me-2" type="submit" value="Generate Report">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="report-modifier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Report Modifiers</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-	<ul>
-	  <li><a href="#">Choose Location</a></li>
-	  <li><a href="#">Input Asset Number</a></li>
-	  <li><a href="#">Normal Service</a></li>
-	  <li><a href="#">Other Service<a></li>
-	</ul>
-      </div>
-      <div class="modal-footer">
-	<input class="form-control me-2" type="submit" value="Generate Report">
-      </div>
-    </div>
-  </div>
-</div>
-
-
 
 
 
