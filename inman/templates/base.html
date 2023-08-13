@@ -341,6 +341,77 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="report-location" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Choose a Location</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="d-flex" method="post" action="{{ url_for('report.location') }}">
+      <div class="modal-body">
+	  <select class="form-control me-2 my-1" name="report_location_id" id="report_location_id">
+	    {% for l in location %}
+	    <option value="{{ l['id'] }}">{{ l['name'] }}</option>
+	    {% endfor %}
+	  </select>
+	  <input type="hidden" name="report_location_choice" id="report_location_choice" value="full" />
+      </div>
+      <div class="modal-footer">
+	<input class="form-control me-2" type="submit" value="Generate Report">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="report-location-normal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Choose a Location</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="d-flex" method="post" action="{{ url_for('report.location') }}">
+      <div class="modal-body">
+	  <select class="form-control me-2 my-1" name="report_location_id" id="report_location_id">
+	    {% for l in location %}
+	    <option value="{{ l['id'] }}">{{ l['name'] }}</option>
+	    {% endfor %}
+	  </select>
+	  <input type="hidden" name="report_location_choice" id="report_location_choice" value="normal" />
+      </div>
+      <div class="modal-footer">
+	<input class="form-control me-2" type="submit" value="Generate Report">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="report-location-other" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Choose a Location</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="d-flex" method="post" action="{{ url_for('report.location') }}">
+      <div class="modal-body">
+	  <select class="form-control me-2 my-1" name="report_location_id" id="report_location_id">
+	    {% for l in location %}
+	    <option value="{{ l['id'] }}">{{ l['name'] }}</option>
+	    {% endfor %}
+	  </select>
+	  <input type="hidden" name="report_location_choice" id="report_location_choice" value="other" />
+      </div>
+      <div class="modal-footer">
+	<input class="form-control me-2" type="submit" value="Generate Report">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 
 
 

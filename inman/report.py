@@ -122,3 +122,74 @@ def asset_number():
         flash('Could not understand request for report generation.',
               category='error')
         return redirect(url_for('index'))
+
+
+@bp.route('/report-location', methods=('GET', 'POST'))
+def location():
+    location = request.form['report_location_id']
+    location_name = None
+    choice = request.form['report_location_choice']
+    db = get_db()
+    error = None
+
+    if location is None:
+        error = 'No location was provided!'
+
+    if error:
+        flash(error, category='error')
+        return redirect(url_for('index'))
+
+    location_name = db.execute(
+        "SELECT name FROM location WHERE id=?",
+        (location,)
+    ).fetchone()[0]
+
+    normal_data = db.execute(
+        "SELECT inventory.asset_no AS asset_number,"
+        " asset_type.name AS asset_type,"
+        " company.name AS company,"
+        " service_date, DATE(service_date, '+1 Year') AS due_date,"
+        " remarks FROM normal_service"
+        " INNER JOIN inventory ON inventory.id = normal_service.asset_id"
+        " INNER JOIN asset_type ON asset_type.id = inventory.asset_type"
+        " INNER JOIN company ON company.id = inventory.company"
+        " AND asset_id IN ("
+        " SELECT id FROM inventory WHERE"
+        " location = ?)"
+        " ORDER BY inventory.id, service_date DESC",
+        (location,)
+    ).fetchall()
+
+    other_data = db.execute(
+        "SELECT inventory.asset_no AS asset_number,"
+        " asset_type.name AS asset_type,"
+        " company.name AS company,"
+        " service_date, remarks"
+        " FROM other_service"
+        " INNER JOIN inventory ON inventory.id = other_service.asset_id"
+        " INNER JOIN asset_type ON asset_type.id = inventory.asset_type"
+        " INNER JOIN company ON company.id = inventory.company"
+        " AND asset_id IN ("
+        " SELECT id FROM inventory WHERE"
+        " location = ?)"
+        " ORDER BY inventory.id, service_date DESC",
+        (location,)
+    ).fetchall()
+
+    if choice == 'full':
+        return render_template('report-location.html',
+                               location_name=location_name,
+                               normal_data=normal_data,
+                               other_data=other_data)
+    elif choice == 'normal':
+        return render_template('report-location-normal.html',
+                               location_name=location_name,
+                               normal_data=normal_data)
+    elif choice == 'other':
+        return render_template('report-location-other.html',
+                               location_name=location_name,
+                               other_data=other_data)
+    else:
+        flash('Could not understand request for report generation.',
+              category='error')
+        return redirect(url_for('index'))
