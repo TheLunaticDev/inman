@@ -1,4 +1,5 @@
 import functools
+import pdfkit
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app, send_file
@@ -134,10 +135,20 @@ def admin_required(view):
 
     return wrapped_view
 
+
 @bp.route('/download-log')
 @admin_required
 def download_log():
     path = current_app.config['LOG']
+    return send_file(path, as_attachment=True)
+
+
+@bp.route('/download-report')
+@admin_required
+def download_report():
+    pdfkit.from_file(current_app.config['REPORT_HTML'],
+                     current_app.config['REPORT'])
+    path = current_app.config['REPORT']
     return send_file(path, as_attachment=True)
 
 

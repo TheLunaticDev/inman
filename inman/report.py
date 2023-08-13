@@ -52,7 +52,7 @@ def other_service():
     ).fetchall()
 
     report = render_template('report-other-service.html', data=data)
-    with open(current_app.config['REPORT_HTML'], 'W') as f:
+    with open(current_app.config['REPORT_HTML'], 'w') as f:
         f.write(report)
     return report
 
@@ -116,21 +116,21 @@ def asset_number():
                                  asset_information=asset_information,
                                  normal_service=normal_service,
                                  other_service=other_service)
-        with open(current_app.config['REPORT_HTML'], 'W') as f:
+        with open(current_app.config['REPORT_HTML'], 'w') as f:
             f.write(report)
         return report
     elif choice == 'normal':
         report = render_template('report-asset-number-normal.html',
                                  asset_information=asset_information,
                                  normal_service=normal_service)
-        with open(current_app.config['REPORT_HTML'], 'W') as f:
+        with open(current_app.config['REPORT_HTML'], 'w') as f:
             f.write(report)
         return report
     elif choice == 'other':
         report = render_template('report-asset-number-other.html',
                                  asset_information=asset_information,
                                  other_service=other_service)
-        with open(current_app.config['REPORT_HTML'], 'W') as f:
+        with open(current_app.config['REPORT_HTML'], 'w') as f:
             f.write(report)
         return report
     else:
@@ -196,21 +196,21 @@ def location():
                                  location_name=location_name,
                                  normal_data=normal_data,
                                  other_data=other_data)
-        with open(current_app.config['REPORT_HTML'], 'W') as f:
+        with open(current_app.config['REPORT_HTML'], 'w') as f:
             f.write(report)
         return report
     elif choice == 'normal':
         report = render_template('report-location-normal.html',
                                  location_name=location_name,
                                  normal_data=normal_data)
-        with open(current_app.config['REPORT_HTML'], 'W') as f:
+        with open(current_app.config['REPORT_HTML'], 'w') as f:
             f.write(report)
         return report
     elif choice == 'other':
         report = render_template('report-location-other.html',
                                  location_name=location_name,
                                  other_data=other_data)
-        with open(current_app.config['REPORT_HTML'], 'W') as f:
+        with open(current_app.config['REPORT_HTML'], 'w') as f:
             f.write(report)
         return report
     else:
@@ -255,6 +255,9 @@ def report_full():
         " ORDER BY inventory.id, service_date DESC"
     ).fetchall()
 
-    return render_template('report-full.html',
-                           normal_data=normal_data,
-                           other_data=other_data)
+    report = render_template('report-full.html',
+                             normal_data=normal_data,
+                             other_data=other_data)
+    with open(current_app.config['REPORT_HTML'], 'w') as f:
+        f.write(report)
+    return report
