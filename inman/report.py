@@ -54,6 +54,7 @@ def other_service():
 @bp.route('/report-for-an-asset', methods=('GET', 'POST'))
 def asset_number():
     asset_no = request.form['report_asset_no']
+    choice = request.form['report_asset_choice']
     db = get_db()
     error = None
 
@@ -104,7 +105,20 @@ def asset_number():
         (asset_id[0],)
     ).fetchall()
 
-    return render_template('report-asset-number.html',
-                           asset_information=asset_information,
-                           normal_service=normal_service,
-                           other_service=other_service)
+    if choice == 'full':
+        return render_template('report-asset-number.html',
+                               asset_information=asset_information,
+                               normal_service=normal_service,
+                               other_service=other_service)
+    elif choice == 'normal':
+        return render_template('report-asset-number-normal.html',
+                               asset_information=asset_information,
+                               normal_service=normal_service)
+    elif choice == 'other':
+        return render_template('report-asset-number-other.html',
+                               asset_information=asset_information,
+                               other_service=other_service)
+    else:
+        flash('Could not understand request for report generation.',
+              category='error')
+        return redirect(url_for('index'))

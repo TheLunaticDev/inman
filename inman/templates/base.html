@@ -41,9 +41,15 @@
 		Report
               </a>
               <ul class="dropdown-menu">
-		<li><a class="dropdown-item" href="{{ url_for('report.normal_service') }}">Normal Service</a></li>
-		<li><a class="dropdown-item" href="{{ url_for('report.other_service') }}">Other Service</a></li>
-		<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report-asset-number">Asset Number</li>
+		<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report-asset-number-normal">Asset Normal Service Report</a></li>
+		<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report-asset-number-other">Asset Other Service Report</a></li>
+		<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report-asset-number">Asset Full Report</a></li>
+		<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report-location-normal">Location Normal Service Report</a></li>
+		<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report-location-other">Location Other Service Report</a></li>
+		<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report-location">Location Full Service Report</a></li>
+		<li><a class="dropdown-item" href="{{ url_for('report.normal_service') }}">Full Normal Service Report</a></li>
+		<li><a class="dropdown-item" href="{{ url_for('report.other_service') }}">Full Other Service Report</a></li>
+		<li><a class="dropdown-item" href="#">Full Report</a></li>
               </ul>
             </li>
 	    <li class="nav-item">
@@ -288,6 +294,7 @@
       <form class="d-flex" method="post" action="{{ url_for('report.asset_number') }}">
       <div class="modal-body">
 	<input class="form-control me-2 my-1" type="text" placeholder="Asset Number" area-label="Asset Number" name="report_asset_no" id="report_asset_no" required>
+	<input type="hidden" id="report_asset_choice" name="report_asset_choice" value="full" />
       </div>
       <div class="modal-footer">
 	<input class="form-control me-2" type="submit" value="Generate Report">
@@ -296,6 +303,46 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="report-asset-number-normal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter A Valid Asset Number</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="d-flex" method="post" action="{{ url_for('report.asset_number') }}">
+      <div class="modal-body">
+	<input class="form-control me-2 my-1" type="text" placeholder="Asset Number" area-label="Asset Number" name="report_asset_no" id="report_asset_no" required>
+	<input type="hidden" id="report_asset_choice" name="report_asset_choice" value="normal" />
+      </div>
+      <div class="modal-footer">
+	<input class="form-control me-2" type="submit" value="Generate Report">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="report-asset-number-other" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter A Valid Asset Number</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="d-flex" method="post" action="{{ url_for('report.asset_number') }}">
+      <div class="modal-body">
+	<input class="form-control me-2 my-1" type="text" placeholder="Asset Number" area-label="Asset Number" name="report_asset_no" id="report_asset_no" required>
+	<input type="hidden" id="report_asset_choice" name="report_asset_choice" value="other" />
+      </div>
+      <div class="modal-footer">
+	<input class="form-control me-2" type="submit" value="Generate Report">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 
 
 
