@@ -23,7 +23,7 @@ def normal_service():
         " INNER JOIN company ON company.id = inventory.company"
         " INNER JOIN location ON location.id = inventory.location"
         " INNER JOIN status ON status.id = inventory.status"
-        " ORDER BY service_date DESC"
+        " ORDER BY inventory.id, service_date DESC"
     ).fetchall()
 
     return render_template('report-normal-service.html', data=data)
@@ -45,7 +45,7 @@ def other_service():
         " INNER JOIN company ON company.id = inventory.company"
         " INNER JOIN location ON location.id = inventory.location"
         " INNER JOIN status ON status.id = inventory.status"
-        " ORDER BY service_date DESC"
+        " ORDER BY inventory.id, service_date DESC"
     ).fetchall()
 
     return render_template('report-other-service.html', data=data)
@@ -193,3 +193,44 @@ def location():
         flash('Could not understand request for report generation.',
               category='error')
         return redirect(url_for('index'))
+
+
+@bp.route('/report-full', methods=('GET', 'POST'))
+def report_full():
+    db = get_db()
+    normal_data = db.execute(
+        "SELECT inventory.asset_no,"
+        " asset_type.name AS asset_type_name,"
+        " company.name AS company_name,"
+        " location.name AS location_name,"
+        " status.name AS status_name,"
+        " service_date, remarks,"
+        " DATE(service_date, '+1 Year') AS due_date"
+        " FROM normal_service"
+        " INNER JOIN inventory ON inventory.id = normal_service.asset_id"
+        " INNER JOIN asset_type ON asset_type.id = inventory.asset_type"
+        " INNER JOIN company ON company.id = inventory.company"
+        " INNER JOIN location ON location.id = inventory.location"
+        " INNER JOIN status ON status.id = inventory.status"
+        " ORDER BY inventory.id, service_date DESC"
+    ).fetchall()
+
+    other_data = db.execute(
+        "SELECT inventory.asset_no,"
+        " asset_type.name AS asset_type_name,"
+        " company.name AS company_name,"
+        " location.name AS location_name,"
+        " status.name AS status_name,"
+        " service_date, remarks"
+        " FROM other_service"
+        " INNER JOIN inventory ON inventory.id = other_service.asset_id"
+        " INNER JOIN asset_type ON asset_type.id = inventory.asset_type"
+        " INNER JOIN company ON company.id = inventory.company"
+        " INNER JOIN location ON location.id = inventory.location"
+        " INNER JOIN status ON status.id = inventory.status"
+        " ORDER BY inventory.id, service_date DESC"
+    ).fetchall()
+
+    return render_template('report-full.html',
+                           normal_data=normal_data,
+                           other_data=other_data)
