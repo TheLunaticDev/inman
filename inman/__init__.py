@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -9,7 +10,8 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'inventory-manager.sqlite'),
         LOG=os.path.join(app.instance_path, 'log.txt'),
-        REPORT=os.path.join(app.instance_path, 'report.txt'),
+        REPORT_HTML=os.path.join(app.instance_path, 'report.html'),
+        REPORT=os.path.join(app.instance_path, 'report.pdf'),
     )
 
     if test_config is None:

@@ -1,6 +1,6 @@
 from inman.db import get_db
 from flask import (
-    Blueprint, render_template, request, flash, redirect, url_for
+    Blueprint, render_template, request, flash, redirect, url_for, current_app
 )
 
 bp = Blueprint('report', __name__)
@@ -26,7 +26,10 @@ def normal_service():
         " ORDER BY service_date DESC"
     ).fetchall()
 
-    return render_template('report-normal-service.html', data=data)
+    report = render_template('report-normal-service.html', data=data)
+    with open(current_app.config['REPORT_HTML'], 'w') as f:
+        f.write(report)
+    return report
 
 
 @bp.route('/report-other-service', methods=('GET', 'POST'))
@@ -48,7 +51,10 @@ def other_service():
         " ORDER BY service_date DESC"
     ).fetchall()
 
-    return render_template('report-other-service.html', data=data)
+    report = render_template('report-other-service.html', data=data)
+    with open(current_app.config['REPORT_HTML'], 'W') as f:
+        f.write(report)
+    return report
 
 
 @bp.route('/report-for-an-asset', methods=('GET', 'POST'))
@@ -106,18 +112,27 @@ def asset_number():
     ).fetchall()
 
     if choice == 'full':
-        return render_template('report-asset-number.html',
-                               asset_information=asset_information,
-                               normal_service=normal_service,
-                               other_service=other_service)
+        report = render_template('report-asset-number.html',
+                                 asset_information=asset_information,
+                                 normal_service=normal_service,
+                                 other_service=other_service)
+        with open(current_app.config['REPORT_HTML'], 'W') as f:
+            f.write(report)
+        return report
     elif choice == 'normal':
-        return render_template('report-asset-number-normal.html',
-                               asset_information=asset_information,
-                               normal_service=normal_service)
+        report = render_template('report-asset-number-normal.html',
+                                 asset_information=asset_information,
+                                 normal_service=normal_service)
+        with open(current_app.config['REPORT_HTML'], 'W') as f:
+            f.write(report)
+        return report
     elif choice == 'other':
-        return render_template('report-asset-number-other.html',
-                               asset_information=asset_information,
-                               other_service=other_service)
+        report = render_template('report-asset-number-other.html',
+                                 asset_information=asset_information,
+                                 other_service=other_service)
+        with open(current_app.config['REPORT_HTML'], 'W') as f:
+            f.write(report)
+        return report
     else:
         flash('Could not understand request for report generation.',
               category='error')
@@ -177,18 +192,27 @@ def location():
     ).fetchall()
 
     if choice == 'full':
-        return render_template('report-location.html',
-                               location_name=location_name,
-                               normal_data=normal_data,
-                               other_data=other_data)
+        report = render_template('report-location.html',
+                                 location_name=location_name,
+                                 normal_data=normal_data,
+                                 other_data=other_data)
+        with open(current_app.config['REPORT_HTML'], 'W') as f:
+            f.write(report)
+        return report
     elif choice == 'normal':
-        return render_template('report-location-normal.html',
-                               location_name=location_name,
-                               normal_data=normal_data)
+        report = render_template('report-location-normal.html',
+                                 location_name=location_name,
+                                 normal_data=normal_data)
+        with open(current_app.config['REPORT_HTML'], 'W') as f:
+            f.write(report)
+        return report
     elif choice == 'other':
-        return render_template('report-location-other.html',
-                               location_name=location_name,
-                               other_data=other_data)
+        report = render_template('report-location-other.html',
+                                 location_name=location_name,
+                                 other_data=other_data)
+        with open(current_app.config['REPORT_HTML'], 'W') as f:
+            f.write(report)
+        return report
     else:
         flash('Could not understand request for report generation.',
               category='error')
