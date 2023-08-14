@@ -1,9 +1,9 @@
 [project]
 name = "inman"
-version = "1.0.2"
+version = "1.1.0"
 description = "The basic inventory manager app."
 dependencies = [
-    "flask",
+    "flask", "pdfkit",
 ]
 
 [build-system]
