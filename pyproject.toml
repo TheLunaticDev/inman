@@ -3,7 +3,7 @@ name = "inman"
 version = "1.1.0"
 description = "The basic inventory manager app."
 dependencies = [
-    "flask", "pdfkit",
+    "flask", "pdfkit", "pyvirtualdisplay"
 ]
 
 [build-system]
