@@ -12,6 +12,7 @@ def create_app(test_config=None):
         LOG=os.path.join(app.instance_path, 'log.txt'),
         REPORT_HTML=os.path.join(app.instance_path, 'report.html'),
         REPORT=os.path.join(app.instance_path, 'report.pdf'),
+        CSS=os.path.join(app.root_path, 'static/bootstrap.min.css'),
     )
 
     if test_config is None:
