@@ -2,18 +2,25 @@ import functools
 import pdfkit
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app, send_file
+    Blueprint, flash, g, redirect, render_template, request, session, url_for,
+    current_app, send_file
 )
 from werkzeug.security import check_password_hash, generate_password_hash
+from pyvirtualdisplay import Display
 
 from inman.db import get_db
 from inman.log import log_entry
 
 bp = Blueprint('index', __name__)
 
+
 def get_data(db):
     table = db.execute(
-        'SELECT inventory.id, asset_no, asset_type.name AS asset_type, company.name AS company, location.name AS location, status.name AS status FROM inventory'
+        'SELECT inventory.id, asset_no,'
+        ' asset_type.name AS asset_type,'
+        ' company.name AS company,'
+        ' location.name AS location,'
+        ' status.name AS status FROM inventory'
         ' INNER JOIN asset_type ON asset_type.id=inventory.asset_type'
         ' INNER JOIN company ON company.id=inventory.company'
         ' INNER JOIN location ON location.id=inventory.location'
@@ -146,10 +153,14 @@ def download_log():
 @bp.route('/download-report')
 @admin_required
 def download_report():
-    pdfkit.from_file(current_app.config['REPORT_HTML'],
-                     current_app.config['REPORT'])
-    path = current_app.config['REPORT']
-    return send_file(path, as_attachment=True)
+    try:
+        with Display():
+            pdfkit.from_file(current_app.config['REPORT_HTML'],
+                             current_app.config['REPORT'])
+            path = current_app.config['REPORT']
+            return send_file(path, as_attachment=True)
+    except Exception:
+        pass
 
 
 @bp.route('/register', methods=['POST'])
