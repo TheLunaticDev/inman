@@ -154,13 +154,14 @@ def download_log():
 @admin_required
 def download_report():
     try:
+        css = url_for('static', filename='bootstrap.min.css')
         with Display():
             pdfkit.from_file(current_app.config['REPORT_HTML'],
-                             current_app.config['REPORT'])
-            path = current_app.config['REPORT']
-            return send_file(path, as_attachment=True)
-    except Exception:
-        pass
+                             current_app.config['REPORT'],
+                             css=css)
+    finally:
+        path = current_app.config['REPORT']
+        return send_file(path, as_attachment=True)
 
 
 @bp.route('/register', methods=['POST'])
